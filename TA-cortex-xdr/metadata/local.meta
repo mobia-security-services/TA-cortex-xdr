@@ -1,0 +1,20 @@
+[props/cortex%3Axdr]
+owner = admin
+version = 8.0.6
+modtime = 1611853221.642420000
+
+[props/source%3A%3A...ta-cortex-xdr%2A.log%2A]
+owner = admin
+version = 8.0.6
+modtime = 1611853221.961535000
+
+[props/source%3A%3A...ta_cortex_xdr%2A.log%2A]
+owner = admin
+version = 8.0.6
+modtime = 1611853222.242843000
+
+[]
+access = read : [ * ], write : [ admin ]
+export = none
+version = 8.0.6
+modtime = 1611965705.249255000
