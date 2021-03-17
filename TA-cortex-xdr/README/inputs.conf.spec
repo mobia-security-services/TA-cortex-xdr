@@ -1,4 +1,4 @@
 [cortex_xdr://<name>]
-cortex_xdr_host = 
-cortex_xdr_token_id = 
-cortex_xdr_token =
+cortex_url = Cortex URL (e.g. https://cortex.internal)
+cortex_token_id = 
+cortex_token =

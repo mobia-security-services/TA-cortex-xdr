@@ -46,15 +46,15 @@ class ModInputcortex_xdr(modinput_wrapper.base_modinput.BaseModInput):
         For customized inputs, hard code the arguments here to hide argument detail from users.
         For other input types, arguments should be get from input_module. Defining new input types could be easier.
         """
-        scheme.add_argument(smi.Argument("cortex_xdr_host", title="Cortex XDR Host",
+        scheme.add_argument(smi.Argument("cortex_url", title="Cortex URL",
+                                         description="Cortex URL (e.g. https://cortex.internal)",
+                                         required_on_create=True,
+                                         required_on_edit=False))
+        scheme.add_argument(smi.Argument("cortex_token_id", title="Cortex Token ID",
                                          description="",
                                          required_on_create=True,
                                          required_on_edit=False))
-        scheme.add_argument(smi.Argument("cortex_xdr_token_id", title="Cortex XDR Token ID",
-                                         description="",
-                                         required_on_create=True,
-                                         required_on_edit=False))
-        scheme.add_argument(smi.Argument("cortex_xdr_token", title="Cortex XDR Token",
+        scheme.add_argument(smi.Argument("cortex_token", title="Cortex Token",
                                          description="",
                                          required_on_create=True,
                                          required_on_edit=False))

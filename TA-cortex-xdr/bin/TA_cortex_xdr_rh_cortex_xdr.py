@@ -34,7 +34,7 @@ fields = [
         )
     ), 
     field.RestField(
-        'cortex_xdr_host',
+        'cortex_url',
         required=True,
         encrypted=False,
         default=None,
@@ -44,7 +44,7 @@ fields = [
         )
     ), 
     field.RestField(
-        'cortex_xdr_token_id',
+        'cortex_token_id',
         required=True,
         encrypted=False,
         default=None,
@@ -54,7 +54,7 @@ fields = [
         )
     ), 
     field.RestField(
-        'cortex_xdr_token',
+        'cortex_token',
         required=True,
         encrypted=True,
         default=None,
