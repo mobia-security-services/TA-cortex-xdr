@@ -71,6 +71,8 @@ def collect_events(helper, ew):
     # get the current timestamp
     timestamp = get_state()
 
+    helper.log_info("Using timestamp: {0}".format(timestamp))
+
     # filter the request using timestamp and incident creation_time
     data = {
         "request_data": {
@@ -129,7 +131,7 @@ def collect_events(helper, ew):
                 incident_details = response.json()
                 
                 event = helper.new_event(time=round(incident_details['reply']['incident']['creation_time']/1000),source=helper.get_input_type(), index=helper.get_output_index(), sourcetype=helper.get_sourcetype(), data=json.dumps(incident_details))
-    ew.write_event(event)
+                ew.write_event(event)
                 #helper.log_debug(incident_details)
                 
         #         try:
