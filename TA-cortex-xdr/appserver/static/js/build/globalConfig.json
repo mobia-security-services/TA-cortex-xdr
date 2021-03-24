@@ -2,7 +2,7 @@
     "meta": {
         "name": "TA-cortex-xdr",
         "displayName": "TA-cortex-xdr",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "apiVersion": "3.0.0",
         "restRoot": "TA_cortex_xdr"
     },

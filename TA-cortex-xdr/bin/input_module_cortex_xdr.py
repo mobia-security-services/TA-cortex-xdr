@@ -70,7 +70,6 @@ def collect_events(helper, ew):
 
     # get the current timestamp
     timestamp = get_state()
-
     helper.log_info("Using timestamp: {0}".format(timestamp))
 
     # filter the request using timestamp and incident creation_time
@@ -106,7 +105,9 @@ def collect_events(helper, ew):
     else:
         helper.log_info("Incidents retrieved.")
         incidents = response.json()
-        put_state((int(round(time.time() * 1000))))
+        next_timestamp = (int(round(time.time() * 1000)))
+        put_state(next_timestamp)
+        helper.log_info("Updating timestamp: {0}".format(next_timestamp))
     
     if(incidents != None and incidents['reply']['total_count'] > 0):
         helper.log_info("{0} Incidents Found.".format(incidents['reply']['total_count']))
@@ -129,8 +130,8 @@ def collect_events(helper, ew):
                 helper.log_info("Incidents extra details found.")
                 
                 incident_details = response.json()
-                
-                event = helper.new_event(time=round(incident_details['reply']['incident']['creation_time']/1000),source=helper.get_input_type(), index=helper.get_output_index(), sourcetype=helper.get_sourcetype(), data=json.dumps(incident_details))
+                #helper.get_sourcetype()
+                event = helper.new_event(time=round(incident_details['reply']['incident']['creation_time']/1000),source=helper.get_input_type(), index=helper.get_output_index(), sourcetype="_json", data=json.dumps(incident_details))
                 ew.write_event(event)
                 #helper.log_debug(incident_details)
                 
