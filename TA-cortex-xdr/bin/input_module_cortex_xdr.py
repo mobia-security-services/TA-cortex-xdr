@@ -61,6 +61,7 @@ def collect_events(helper, ew):
     
     incident_url="{0}/public_api/v1/incidents/get_incidents/".format(opt_cortex_url)
     details_url="{0}/public_api/v1/incidents/get_incident_extra_data/".format(opt_cortex_url)
+    update_url="{0}/public_api/v1/incidents/update_incident/".format(opt_cortex_url)
     
     auth_headers = {
             "x-xdr-auth-id": str(opt_cortex_token_id),
@@ -130,15 +131,30 @@ def collect_events(helper, ew):
                 helper.log_info("Incidents extra details found.")
                 
                 incident_details = response.json()
-                #helper.get_sourcetype()
+                #sourcetype = helper.get_sourcetype()
+                # override sourcetype with _json - duplicate event issue workaround with non _json sourcetype
                 event = helper.new_event(time=round(incident_details['reply']['incident']['creation_time']/1000),source=helper.get_input_type(), index=helper.get_output_index(), sourcetype="_json", data=json.dumps(incident_details))
                 ew.write_event(event)
-                #helper.log_debug(incident_details)
-                
-        #         try:
-        #             event = helper.new_event(time=round(incident_details['reply']['incident']['creation_time']/1000),source=helper.get_input_stanza_names(), index=helper.get_output_index(), sourcetype=sourcetype, data=json.dumps(incident_details), done=True, unbroken=True)
-                    
-        #             ew.write_event(event)
-        #             ew.close()
-        #         except:
-        #             helper.log_error(sys.exc_info()[0])
+
+                helper.log_info("Resolving Cortex Ticket: {0}".format(incident['incident_id']))
+                comment = "A Splunk event ticket has been created for investigation"
+                temp_data = {
+                    "request_data": {
+                        "incident_id":incident['incident_id'],
+                        "update_data": {
+                            "status":"resolved_other",
+                            "resolve_comment":comment
+                        }
+                    }
+                }
+                response = helper.send_http_request(update_url, "POST", parameters=None, payload=temp_data,
+                                            headers=auth_headers, cookies=None, verify=False, cert=None,
+                                            timeout=30, use_proxy=True)
+
+                if response.status_code != 200:
+                    helper.log_error("Failed to update Cortex incident: {0}".format(response.status_code))
+                    incident_details = None
+                else:
+                    helper.log_info("Cortex incident resolved: {0}".format(incident['incident_id']))
+
+
