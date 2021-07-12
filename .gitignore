@@ -1,1 +1,4 @@
 .DS_Store
+TA-cortex-xdr/bin/ta_cortex_xdr/aob_py2/**/*.pyc
+TA-cortex-xdr/bin/**/*.pyc
+TA-cortex-xdr/bin/cortex_xdr.last

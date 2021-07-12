@@ -132,7 +132,8 @@ def collect_events(helper, ew):
                 
                 incident_details = response.json()
                 #sourcetype = helper.get_sourcetype()
-                event = helper.new_event(time=round(incident_details['reply']['incident']['creation_time']/1000),source=helper.get_input_type(), index=helper.get_output_index(), sourcetype="cortex:xdr", data=json.dumps(incident_details))
+                sourcetype="_json"
+                event = helper.new_event(time=round(incident_details['reply']['incident']['creation_time']/1000),source=helper.get_input_type(), index=helper.get_output_index(), sourcetype=sourcetype, data=json.dumps(incident_details))
                 ew.write_event(event)
 
                 helper.log_info("Resolving Cortex Ticket: {0}".format(incident['incident_id']))
@@ -155,5 +156,3 @@ def collect_events(helper, ew):
                     incident_details = None
                 else:
                     helper.log_info("Cortex incident resolved: {0}".format(incident['incident_id']))
-
-
