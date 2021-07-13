@@ -9,7 +9,7 @@ import pickle
 import json
 from pprint import pprint
 
-state_file_name = "cortex_xdr.last"
+state_file_name = "cortex_xdrednpoint.last"
 state_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), state_file_name)
 
 def get_state():
